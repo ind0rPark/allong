@@ -278,6 +278,10 @@ header.page{
   content:'·';position:absolute;left:2px;
   font-size:1.3rem;line-height:1.1;
 }
+.info-box li:last-child{
+  font-size:.9rem;
+  line-height:1.35;
+}
 .member-note{margin-top:26px;font-family:var(--font-hand);font-weight:700;font-size:1.1rem;text-align:center;color:#fff;}
 
 /* ---------- 셋리스트 보드게임 ---------- */
