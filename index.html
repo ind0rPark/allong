@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>얼렁뚱땅!</title>
+<!-- 임시 웹폰트: 혜원 컴퓨터 폰트로 바꾸려면 css/style.css 맨 위 @font-face 주석 참고! -->
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gaegu:wght@400;700&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- 포스터처럼 화면을 두르는 검정 프레임 -->
+<div class="page-frame" aria-hidden="true"></div>
+
+<!-- 픽 카운터 -->
+<div id="pick-counter" aria-live="polite">🎸 pick in my pocket: <span id="pickCount">0</span></div>
+
+<!-- ===== 버퍼링 인트로 ===== -->
+<div id="intro" role="status" aria-label="로딩 중">
+  <div class="spinner" aria-hidden="true"></div>
+  <img class="intro-face" src="assets/images/머리.png" alt="" aria-hidden="true">
+  <p id="introText">로딩 중</p>
+</div>
+
+<!-- ===== 히어로 ===== -->
+<header class="page">
+  <div class="presents-box">2027 PROJECT</div>
+
+  <div class="hero-logo-wrap">
+    <img class="hero-logo hero-logo-default" src="assets/images/얼렁뚱땅1.png" alt="얼렁뚱땅!"
+         onerror="this.closest('.hero-logo-wrap').style.display='none';document.getElementById('logoFallback').style.display='block';">
+    <img class="hero-logo hero-logo-hover" src="assets/images/얼렁뚱땅.png" alt="" aria-hidden="true">
+  </div>
+  <h1 id="logoFallback" class="hero-title" style="display:none;">얼렁뚱땅!</h1>
+  <div class="hero-ticket">270304 FRI <span>|</span> ROLLING HALL</div>
+  <div class="scroll-hint">↓ 알아보자 ↓</div>
+</header>
+
+<!-- ===== 멤버 소개 ===== -->
+<section class="page" id="members">
+  <div class="cut-label">제 1 컷</div>
+  <h2 class="section-title">멤버 카드</h2>
+  <p class="section-sub">마우스를 올려도 보고, 클릭도 해보세요~</p>
+
+  <div class="member-grid" id="memberGrid"><!-- js/script.js의 MEMBERS에서 자동 생성 --></div>
+</section>
+
+<!-- ===== 셋리스트 보드게임 ===== -->
+<section class="page" id="setlist">
+  <div class="cut-label">제 2 컷</div>
+  <h2 class="section-title">Set List ♬ </h2>
+  <p class="section-sub">~ 셋리스트 미리보기 ~</p>
+
+  <div class="board-wrap">
+    <!-- 왼쪽: 혜원이 만든 보드판 이미지 -->
+    <div class="board panel" id="board">
+      <div class="board-inner" id="boardInner">
+        <img class="board-img" src="assets/images/pan.png" alt="셋리스트 보드게임 판" id="boardImg">
+        <img class="game-piece" id="gamePiece" src="assets/images/말.png" alt="말" aria-hidden="true">
+        <!-- 칸 클릭용 핫스팟은 js에서 자동 생성 -->
+      </div>
+      <div class="rules">규칙! 1. 드럼을 따라가기~ 2. 포기 X 3. 기죽지 않기!</div>
+    </div>
+
+    <!-- 오른쪽: 컨트롤러(위) + 워크맨(아래) -->
+    <div class="controller-col">
+      <div class="controller panel">
+        <div class="dpad">
+          <button id="btnBack" aria-label="한 칸 뒤로">◀</button>
+          <button id="btnFwd" aria-label="한 칸 앞으로">▶</button>
+          <button id="btnReset" class="btn-reset" aria-label="시작점으로 돌아가기">↺</button>
+        </div>
+        <div class="dice-row">
+          <button class="dice" id="btnDice">🎲 주사위 굴리기</button>
+          <div class="dice-display" aria-hidden="true">
+            <span class="dice-face" id="diceFace"></span>
+          </div>
+        </div>
+        <div class="ctrl-note" id="ctrlNote">START에서 출발!</div>
+      </div>
+
+      <div class="walkman panel">
+        <h3>Let's Play!</h3>
+        <div class="cassette-slot" id="cassetteSlot">
+          <img class="tape-img" id="tapeImg" src="" alt="테이프" aria-hidden="true">
+          <div class="tape-placeholder" id="tapePlaceholder">♪<br>테이프가 들어올 예정</div>
+        </div>
+        <div class="eq" id="eq" aria-hidden="true">
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+          <span class="eq-bar"></span>
+        </div>
+        <iframe class="player-embed" id="playerEmbed" title="음원 미리듣기" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <div class="player-note" id="playerNote">말을 움직여 노래 칸으로 가보세요!</div>
+        <div class="song-label" id="songLabel"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 방명록 ===== -->
+<section class="page" id="guestbook">
+  <div class="cut-label">제 3 컷</div>
+  <h2 class="section-title">낙서장</h2>
+  <p class="section-sub">피드백은 부드럽게, 칭찬은 시끄럽게!</p>
+
+  <div class="guestbook panel">
+    <div class="gb-form">
+      <input type="text" id="gbName" maxlength="12" placeholder="이름 (맘대루)">
+      <textarea id="gbMsg" maxlength="120" placeholder="얼렁뚱땅에게 한마디!"></textarea>
+      <button id="gbSubmit">낙서 남기기</button>
+    </div>
+    <p class="gb-privacy">※ 응원을 남겨보세요! 여기 남는답니다 ~</p>
+    <div class="gb-entries" id="gbEntries"></div>
+  </div>
+</section>
+
+<footer>
+  It's okay..just having FUN..!
+  <div class="the-end">끝이려나</div>
+</footer>
+
+<!-- ===== 행운의 피크 ===== -->
+<img id="lucky-pick" src="assets/images/행운의피크.png" alt="" role="button" tabindex="0" aria-label="숨겨진 행운의 피크">
+
+<div id="lucky-modal" role="dialog" aria-modal="true">
+  <div class="lucky-box">
+    <img src="assets/images/행운의피크.png" alt="행운의 피크" style="width:80px;height:auto;">
+    <h2>행운의 피크를 발견!</h2>
+    <p id="luckyMsg">오늘 합주는 안 틀릴 예정.</p>
+    <button id="luckyClose">in my pocket</button>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
