@@ -24,7 +24,7 @@ setTimeout(() => clearInterval(dotTimer), 2200);
    - 클릭: 카드 아래에 만화 정보창이 펼쳐짐
    ========================================================== */
 const MEMBERS = [
-  {
+{
     id:'guitar', role:'GUITAR', name:'기타',
     fallbackCool:'#3a342c', fallbackSilly:'#E8332A',
     info:[
